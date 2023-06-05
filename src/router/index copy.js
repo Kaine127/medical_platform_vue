@@ -4,6 +4,10 @@ import Layout from '@/views/layout/index_layout.vue'
 import Home from '@/views/layout/home/home.vue'
 import Login from '@/views/login/index_login.vue'
 
+const Schedule = () => import('@/views/schedule/index_schedule.vue')
+const ScheduleList = () => import('@/views/schedule/list/schedule_list.vue')
+const Employee = () => import('@/views/employee/index_employee.vue')
+const EmployeeManageList = () => import('@/views/employee/list/employee_manage_list.vue')
 // 点击跳转同一个路径
 // 在VueRouter上配置路由跳转，在router中的index.js中加上以下代码，注意加在use之前
 const routerPush = VueRouter.prototype.push
@@ -13,7 +17,7 @@ VueRouter.prototype.push = function (location) {
 
 Vue.use(VueRouter)
 // this.$route会记录路由信息  this.$route.matched[] 有着父级路由和子集路由信息 判断父级不可进入 就可阻止子集进入
-export const baseRoutes = [
+const routes = [
   {
     path: '/',
     component: Layout,
@@ -29,16 +33,50 @@ export const baseRoutes = [
         meta: {
           title: '首页'
         }
+      },
+      {
+        path: '/schedule',
+        name: 'schedule',
+        component: Schedule,
+        redirect: '/schedule/schedule_list',
+        meta: {
+          title: '出诊日程安排'
+        },
+        children: [
+          {
+            // 访问路径: /schedule/schedule_list
+            path: 'schedule_list',
+            name: 'schedule_list',
+            component: ScheduleList,
+            meta: {
+              title: '出诊日程列表'
+            }
+          }
+        ]
+      },
+      // 员工列表
+      {
+        path: '/employee',
+        name: 'employee',
+        component: Employee,
+        redirect: '/employee/employee_manage',
+        meta: {
+          title: '诊所员工管理'
+        },
+        children: [
+          {
+            // 访问路径: /employee/employee_manage
+            path: 'employee_manage',
+            name: 'employee_manage',
+            component: EmployeeManageList,
+            meta: {
+              title: '诊所员工管理列表'
+            }
+          }
+        ]
       }
-      // 接下来的菜单导航内容---- 动态添加
     ]
   },
-  {
-    path: '*',
-    redirect: '/'
-  }
-]
-const routes = [
   {
     path: '/login',
     name: 'login',

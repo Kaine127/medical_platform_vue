@@ -4,9 +4,6 @@ import schedule from './modules/schedule'
 import employee from './modules/employee'
 import login from './modules/login'
 import menu from './modules/menu'
-import patient from './modules/patient'
-import inquiry from './modules/inquiry'
-import patientCase from './modules/case'
 import createPersistedstate from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -24,16 +21,13 @@ export default new Vuex.Store({
     schedule,
     employee,
     login,
-    menu,
-    patient,
-    inquiry,
-    patientCase
+    menu
   },
   // plugins:[] vuex插件-持久化 数组语法 多个插件名称
   plugins: [
     createPersistedstate({
       key: 'info', // 存储vuex数据的任意键名--本地存储里面 localStorage
-      paths: ['employee', 'login', 'inquiry'] // 存储的模块名称一级全局state数据  不写默认存储所有内容
+      paths: ['employee', 'login'] // 存储的模块名称一级全局state数据  不写默认存储所有内容
     })
     // ...
   ]
